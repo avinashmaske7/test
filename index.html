@@ -1,52 +1,41 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Dummy Contact Form</title>
-</head>
-<body>
-  <h2>Dummy Contact Form (Test)</h2>
-  <form id="test-form">
-    <label>Name: <input type="text" name="name" required></label><br><br>
-    <label>Email: <input type="email" name="email" required></label><br><br>
-    <label>Subject: <input type="text" name="subject" required></label><br><br>
-    <label>Message:<br>
-      <textarea name="message" rows="5" cols="40" required></textarea>
-    </label><br><br>
-    <button type="submit">Send Message</button>
-  </form>
+<form id="test-form">
+  <input name="name" placeholder="Name" required>
+  <input name="email" type="email" placeholder="Email" required>
+  <input name="subject" placeholder="Subject" required>
+  <textarea name="message" placeholder="Message" required></textarea>
+  <button type="submit">Send</button>
+</form>
 
-  <p id="status"></p>
+<p id="status"></p>
 
-  <script>
-    document.getElementById("test-form").addEventListener("submit", function (e) {
-      e.preventDefault();
-      const form = this;
-      const formData = {
-        name: form.name.value,
-        email: form.email.value,
-        subject: form.subject.value,
-        message: form.message.value
-      };
+<script>
+document.getElementById("test-form")
+  .addEventListener("submit", function (e) {
+    e.preventDefault();
+    document.getElementById("status").textContent = "Sending…";
 
-      fetch("https://script.google.com/macros/s/AKfycbwXDeLPOwnCRB89uF2qwziJH_gZNaEL3YNR-PINJcIoLV43USPqu6EC2YaxDkd09f1Y0w/exec", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData)
-      })
-      .then(response => {
-        if (!response.ok) throw new Error("Network error");
-        return response.json();
-      })
-      .then(data => {
-        document.getElementById("status").textContent = "✅ Message sent successfully!";
-        form.reset();
-      })
-      .catch(error => {
-        console.error("Error:", error);
-        document.getElementById("status").textContent = "❌ Failed to send message.";
-      });
+    const data = {
+      name: this.name.value,
+      email: this.email.value,
+      subject: this.subject.value,
+      message: this.message.value
+    };
+
+    fetch("https://script.google.com/macros/s/AKfycbwXDeLPOwnCRB89uF2qwziJH_gZNaEL3YNR-PINJcIoLV43USPqu6EC2YaxDkd09f1Y0w/exec", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(data)
+    })
+    .then(res => {
+      if (!res.ok) throw new Error("HTTP " + res.status);
+      return res.json();
+    })
+    .then(resData => {
+      document.getElementById("status").textContent = "✅ Success!";
+    })
+    .catch(err => {
+      console.error("Error:", err);
+      document.getElementById("status").textContent = "❌ Failed to send. See console.";
     });
-  </script>
-</body>
-</html>
+});
+</script>
