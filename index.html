@@ -2,72 +2,40 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Contact Form</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 40px;
-    }
-    input, textarea {
-      width: 300px;
-      padding: 10px;
-      margin-bottom: 10px;
-    }
-    button {
-      padding: 10px 20px;
-    }
-  </style>
+  <title>Contact Us</title>
 </head>
 <body>
 
   <h2>Contact Us</h2>
   <form id="contact-form">
-    <input type="text" id="name" placeholder="Your Name" required><br>
-    <input type="email" id="email" placeholder="Your Email" required><br>
-    <textarea id="message" placeholder="Your Message" required></textarea><br>
-    <button type="submit" id="submitBtn">Submit</button>
+    <input type="text" id="name" placeholder="Your Name" required><br><br>
+    <input type="email" id="email" placeholder="Your Email" required><br><br>
+    <textarea id="message" placeholder="Your Message" required></textarea><br><br>
+    <button type="submit">Submit</button>
   </form>
 
   <script>
     const form = document.getElementById('contact-form');
-    const submitBtn = document.getElementById('submitBtn');
-
     form.addEventListener('submit', function (e) {
       e.preventDefault();
 
-      submitBtn.disabled = true;
-      submitBtn.textContent = "Submitting...";
+      const formData = new FormData();
+      formData.append("entry.1396814976", document.getElementById("name").value);
+      formData.append("entry.618321523", document.getElementById("email").value);
+      formData.append("entry.1527168091", document.getElementById("message").value);
 
-      const data = {
-        name: document.getElementById("name").value,
-        email: document.getElementById("email").value,
-        message: document.getElementById("message").value
-      };
-
-      fetch("https://script.google.com/macros/s/AKfycbyjt5pIsg8FUnoTUhPbW1N49FZbNBQnXq41Ryx-5RNWRF-lD7Yhv-hQjolsHyxMZZEKEA/exec", {
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSdrG7Esnh02PIY-NIFaF5_x56NIe-zd42tG5Lnhbq4bCM89Ug/formResponse", {
         method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify(data)
+        mode: "no-cors",
+        body: formData
       })
-      .then(res => {
-        if (!res.ok) {
-          throw new Error("Network response was not ok");
-        }
-        return res.json();
-      })
-      .then(response => {
+      .then(() => {
         alert("✅ Message sent successfully!");
         form.reset();
       })
-      .catch(error => {
-        console.error("Error:", error);
-        alert("❌ Failed to send message. Please try again.");
-      })
-      .finally(() => {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "Submit";
+      .catch((error) => {
+        alert("❌ Submission failed. Try again.");
+        console.error(error);
       });
     });
   </script>
