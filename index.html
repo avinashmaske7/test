@@ -24,7 +24,7 @@
       formData.append("entry.618321523", document.getElementById("email").value);
       formData.append("entry.1527168091", document.getElementById("message").value);
 
-      fetch("https://docs.google.com/forms/d/e/1FAIpQLSdrG7Esnh02PIY-NIFaF5_x56NIe-zd42tG5Lnhbq4bCM89Ug/formResponse", {
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSdrG7Esnh02PIY-NIFaF5_x56NIe-zd42tG5Lnhbq4bCM89Ug/viewform?usp=dialog", {
         method: "POST",
         mode: "no-cors",
         body: formData
