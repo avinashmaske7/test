@@ -1,8 +1,7 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-  <meta charset="UTF-8">
-  <title>Contact Us</title>
+  <title>Contact Form (Google Form Backend)</title>
 </head>
 <body>
 
@@ -15,27 +14,28 @@
   </form>
 
   <script>
-    const form = document.getElementById('contact-form');
-    form.addEventListener('submit', function (e) {
+    const form = document.getElementById("contact-form");
+
+    form.addEventListener("submit", function(e) {
       e.preventDefault();
 
       const formData = new FormData();
-      formData.append("entry.1396814976", document.getElementById("name").value);
-      formData.append("entry.618321523", document.getElementById("email").value);
-      formData.append("entry.1527168091", document.getElementById("message").value);
+      formData.append("entry.22192394", document.getElementById("name").value);
+      formData.append("entry.650017811", document.getElementById("email").value);
+      formData.append("entry.1322673744", document.getElementById("message").value);
 
-      fetch("https://docs.google.com/forms/d/e/1FAIpQLSdrG7Esnh02PIY-NIFaF5_x56NIe-zd42tG5Lnhbq4bCM89Ug/viewform?usp=dialog", {
+      fetch("https://docs.google.com/forms/d/e/1FAIpQLSdrG7Esnh02PIY-NIFaF5_x56NIe-zd42tG5Lnhbq4bCM89Ug/formResponse", {
         method: "POST",
         mode: "no-cors",
         body: formData
       })
       .then(() => {
-        alert("✅ Message sent successfully!");
+        alert("✅ Submitted successfully!");
         form.reset();
       })
-      .catch((error) => {
-        alert("❌ Submission failed. Try again.");
-        console.error(error);
+      .catch(error => {
+        alert("❌ Submission failed.");
+        console.error("Error:", error);
       });
     });
   </script>
