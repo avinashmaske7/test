@@ -1,23 +1,50 @@
-<form action="https://script.google.com/macros/s/AKfycbwXDeLPOwnCRB89uF2qwziJH_gZNaEL3YNR-PINJcIoLV43USPqu6EC2YaxDkd09f1Y0w/exec" method="POST">
-  <label>
-    Name:<br>
-    <input type="text" name="name" required>
-  </label><br><br>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Avinash Contact Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 40px; background: #f9f9f9; }
+    form { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 10px; }
+    label { display: block; margin-top: 10px; }
+    input, textarea { width: 100%; padding: 8px; margin-top: 5px; }
+    button { margin-top: 15px; padding: 10px 20px; font-size: 16px; background: #0066ff; color: white; border: none; border-radius: 5px; cursor: pointer; }
+    #thanks { display: none; text-align: center; font-size: 18px; color: green; margin-top: 20px; }
+    iframe { display: none; }
+  </style>
+</head>
+<body>
 
-  <label>
-    Email:<br>
-    <input type="email" name="email" required>
-  </label><br><br>
+  <form action="https://script.google.com/macros/s/AKfycbwXDeLPOwnCRB89uF2qwziJH_gZNaEL3YNR-PINJcIoLV43USPqu6EC2YaxDkd09f1Y0w/exec" method="POST" target="hidden_iframe" onsubmit="showThankYou()">
+    <h2>Contact Me</h2>
+    <label>Name:
+      <input type="text" name="name" required>
+    </label>
+    <label>Email:
+      <input type="email" name="email" required>
+    </label>
+    <label>Subject:
+      <input type="text" name="subject" required>
+    </label>
+    <label>Message:
+      <textarea name="message" required></textarea>
+    </label>
+    <button type="submit">Send Message</button>
+  </form>
 
-  <label>
-    Subject:<br>
-    <input type="text" name="subject" required>
-  </label><br><br>
+  <div id="thanks">✅ Thank you! Your message has been sent.</div>
 
-  <label>
-    Message:<br>
-    <textarea name="message" rows="5" required></textarea>
-  </label><br><br>
+  <iframe name="hidden_iframe" id="hidden_iframe" onload="if(submitted) document.getElementById('thanks').style.display='block';"></iframe>
 
-  <button type="submit">Send Message</button>
-</form>
+  <script>
+    let submitted = false;
+    function showThankYou() {
+      submitted = true;
+      setTimeout(() => {
+        document.getElementById('thanks').style.display = 'block';
+      }, 500); // Add small delay in case iframe loads instantly
+    }
+  </script>
+
+</body>
+</html>
